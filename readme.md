@@ -7,16 +7,28 @@ This docker service will mimic a satis repository, but a lot more powerful and f
 You should be able to resolve `php.reporangler.develop` locally on your computer. 
 Maybe you need to edit `/etc/hosts` file or add to dns?
 
-Run `docker-compose run --rm php_service_phpfpm`
+Run the following commands:
+- You can change the network, but change it in all the commands
+- You can change the port, but then obviously you need to change the curl command too
+```
+# Create two variables to make it easier to run
+port=80
+network=reporangler
 
-Run `docker-compose run --rm -p 80:80 php_service_nginx`
-    - the port is required to bind to your local `port 80`
-    - if this doesn't work, check `port 80` to see if you have apache/nginx already running
-    - these instructions are obviously simplified and expect `port 80` to be free
-    
-Check with `docker ps` to see if both containers are running
+# Create the docker network (this might already exist, it's safe to ignore errors if it does)
+docker network create ${network}
 
-Run `curl -vvv http://php.reporangler.develop/healthz`
+# Create the containers
+docker run --rm --network=${network} --name php_service_phpfpm reporangler/php_service_phpfpm
+docker run --rm --network=${network} --name php_service_nginx -p ${port}:80 reporangler/php_service_nginx
+
+# See whether they are running
+docker ps
+
+# Query the container to see what it replies
+curl -vvv http://php.reporangler.develop:${port}/healthz
+```
+
 It should output
 ```
 > GET /healthz HTTP/1.1

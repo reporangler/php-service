@@ -9,6 +9,7 @@ networks:
 services:
   php_service_nginx:
     container_name: reporangler_php_service_nginx
+    image: reporangler/php_service_nginx
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -20,6 +21,7 @@ services:
 
   php_service_phpfpm:
     container_name: reporangler_php_service_phpfpm
+    image: reporangler/php_service_phpfpm
     build:
       context: .
       dockerfile: docker/phpfpm/Dockerfile
