@@ -50,7 +50,7 @@ It should output
 < Access-Control-Allow-Headers: *
 < 
 * Connection #0 to host php.reporangler.develop left intact
-{"statusCode":200}
+{"statusCode":200,"service":"http:\/\/php.reporangler.develop"} 
 ```
 
 # Usage
