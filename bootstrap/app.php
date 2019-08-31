@@ -25,8 +25,6 @@ $app->withFacades();
 
 // $app->withEloquent();
 
-$app->configure('logging');
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -43,11 +41,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
-
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -59,13 +52,10 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'cors' => App\Http\Middleware\Cors::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +68,8 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +81,9 @@ $app->singleton(
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
+$app->configure('app');
+$app->configure('logging');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
