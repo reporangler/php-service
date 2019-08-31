@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     public function healthz()
     {
-        return new JsonResponse(["statusCode" => 200], 200);
+        return new JsonResponse(["statusCode" => 200, "service" => config('app.url')], 200);
     }
 
     public function repository()
