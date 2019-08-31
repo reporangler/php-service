@@ -9,19 +9,12 @@ class Controller extends BaseController
 {
     public function cors($args)
     {
-        return new JsonResponse([
-            'args' => func_get_args()
-        ], 200);
+        return $this->healthz();
     }
 
-    public function healthz($args)
+    public function healthz()
     {
         return new JsonResponse(["statusCode" => 200], 200);
-    }
-
-    public function auth($args)
-    {
-        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
     }
 
     public function repository()
