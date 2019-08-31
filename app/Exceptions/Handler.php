@@ -52,9 +52,7 @@ class Handler extends ExceptionHandler
             : $exception->getCode();
 
         //	Unrecognised exceptions with error code 0 get changed to 500
-        if($code === 0) $code = 500;
-
-        // \Statsd::increment("exceptions.$code");
+        if(intval($code) <= 0) $code = 500;
 
         $parentRender = parent::render($request, $exception);
 
