@@ -1,0 +1,29 @@
+version: "3.4"
+
+networks:
+  php_service:
+  repo_rangler_proxy:
+    external:
+      name: repo_rangler_proxy
+
+services:
+  php_service_nginx:
+    container_name: reporangler_php_service_nginx
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    networks:
+      - repo_rangler_proxy
+      - php_service
+    environment:
+      - VIRTUAL_HOST=php.reporangler.develop
+
+  php_service_phpfpm:
+    container_name: reporangler_php_service_phpfpm
+    build:
+      context: .
+      dockerfile: docker/phpfpm/Dockerfile
+    volumes:
+      - $PWD:/www
+    networks:
+      - php_service
