@@ -1,0 +1,36 @@
+{
+    "packages": {
+        "your-vendor/the-package-name": {
+            "1.0.0": {
+                "name": "your-vendor/the-package-name",
+                "version": "1.0.0",
+                "version_normalized": "1.0.0.0",
+                "source": {
+                    "type": "git",
+                    "url": "git@gitlab.yourdomain.com",
+                    "reference": "28347n9w38r7nruc30128n3129c83n120381n309"
+                },
+                "require": {
+                    "symfony/http-foundation": "~4"
+                },
+                "require-dev": {
+                    "codeception/codeception": "2.2.11"
+                },
+                "time": "2019-08-31T13:00:00+00:00",
+                "type": "library",
+                "autoload": {
+                    "psr-0": {
+                        "YourNamespace": "src"
+                    },
+                    "psr-4": {
+                        "YourNamespace\\": "src"
+                    },
+                    "classmap": [
+                        "classes"
+                    ]
+                },
+                "description": "A library that won't work because it's fake"
+            }
+        }
+    }
+}
