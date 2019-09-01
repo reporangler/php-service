@@ -2,4 +2,5 @@
 .vscode
 vendor
 .env
+xdebug.log
 satis-backup.json
