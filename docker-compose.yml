@@ -29,3 +29,5 @@ services:
       - $PWD:/www
     networks:
       - php_service
+    env_file:
+      - $PWD/.env
