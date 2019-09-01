@@ -3,7 +3,7 @@
 $required = [];
 foreach(['APP_NAME', 'APP_PROTOCOL', 'APP_DOMAIN'] as $key){
     $value = env($key);
-    if($value === null) throw new Exception("The parameter '$key' cannot be empty'");
+    if($value === null) throw new Exception("The env-var '$key' cannot be empty'");
     $required[$key] = $value;
 }
 
