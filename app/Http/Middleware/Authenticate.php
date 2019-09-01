@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
+use Illuminate\Auth\RequestGuard;
 
 class Authenticate
 {
@@ -33,12 +35,10 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            // TODO: we should authenticate the user or only allow public access
-            // NOTE: disabled for now
-            //return response('Unauthorized.', 401);
+        if(!$this->auth->guard($guard)->user()){
+            throw new \Exception("No user could be created, not even a public user");
         }
 
         return $next($request);
