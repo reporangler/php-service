@@ -25,7 +25,7 @@ class AuthClient
 
     public function login($type, $username, $password): Response
     {
-        return $this->httpClient->post($this->baseUrl.'/auth', [
+        return $this->httpClient->post($this->baseUrl.'/user/login', [
             RequestOptions::JSON => [
                 'type' => $type,
                 'username' => $username,
