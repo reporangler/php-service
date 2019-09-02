@@ -38,6 +38,8 @@ class Controller extends BaseController
     {
         $u = Auth::user();
 
-        return file_get_contents("/www/all$12341234.json");
+        $packages = json_decode(file_get_contents("/www/all$12341234.json"), true);
+
+        return new JsonResponse($packages, 200);
     }
 }
