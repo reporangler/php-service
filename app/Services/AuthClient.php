@@ -2,8 +2,8 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 class AuthClient
 {
@@ -23,7 +23,7 @@ class AuthClient
         $this->httpClient = $httpClient;
     }
 
-    public function login($type, $username, $password): Response
+    public function login($type, $username, $password): ResponseInterface
     {
         return $this->httpClient->post($this->baseUrl.'/user/login', [
             RequestOptions::JSON => [
