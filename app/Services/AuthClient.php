@@ -30,6 +30,7 @@ class AuthClient
                 'type' => $type,
                 'username' => $username,
                 'password' => $password,
+                'repository_type' => config('repository_type'),
             ]
         ]);
     }
