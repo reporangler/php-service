@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MetadataClient;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -34,11 +35,13 @@ class Controller extends BaseController
         ], 200);
     }
 
-    public function packages(Request $request)
+    public function packages(Request $request, MetadataClient $metadata)
     {
         $u = Auth::user();
 
-        $packages = json_decode(file_get_contents("/www/all$12341234.json"), true);
+        $token = sha1(microtime(true));
+
+        $packages = $metadata->getPackages($token);
 
         return new JsonResponse($packages, 200);
     }
