@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
                 $request->headers->get('php-auth-pw')
             );
 
-            error_log("RESPONSE = ".(string)$response->getBody());
+            error_log("auth response = ".json_encode((string)$response->getBody()));
 
             return new PublicUser();
         });

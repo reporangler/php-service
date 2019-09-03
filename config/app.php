@@ -13,6 +13,7 @@ return [
     'domain' => env('APP_DOMAIN', $required['APP_DOMAIN']),
     'repository_type' => $required['APP_NAME'],
 
-    'php_base_url'  => env('APP_PHP_URL',   "{$required['APP_PROTOCOL']}://{$required['APP_NAME']}.{$required['APP_DOMAIN']}"),
-    'auth_base_url' => env('APP_AUTH_URL',  "{$required['APP_PROTOCOL']}://auth.{$required['APP_DOMAIN']}"),
+    'php_base_url'      => env('APP_PHP_URL',   "{$required['APP_PROTOCOL']}://{$required['APP_NAME']}.{$required['APP_DOMAIN']}"),
+    'auth_base_url'     => env('APP_AUTH_URL',  "{$required['APP_PROTOCOL']}://auth.{$required['APP_DOMAIN']}"),
+    'metadata_base_url' => env('APP_AUTH_URL',  "{$required['APP_PROTOCOL']}://metadata.{$required['APP_DOMAIN']}"),
 ];
