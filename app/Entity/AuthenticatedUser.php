@@ -22,7 +22,7 @@ class AuthenticatedUser extends Model implements AuthenticatableContract, Author
      *
      * @var array
      */
-    protected $fillable = ['id', 'username', 'repository_type', 'package_groups'];
+    protected $fillable = ['id', 'username', 'token', 'repository_type', 'package_groups'];
 
     /**
      * The attributes excluded from the model's JSON form.

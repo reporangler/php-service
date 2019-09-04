@@ -37,11 +37,9 @@ class Controller extends BaseController
 
     public function packages(Request $request, MetadataClient $metadata)
     {
-        $u = Auth::user();
+        $user = Auth::user();
 
-        $token = sha1(microtime(true));
-
-        $packages = $metadata->getPackages($token);
+        $packages = $metadata->getPackages($user->token);
 
         return new JsonResponse($packages, 200);
     }
