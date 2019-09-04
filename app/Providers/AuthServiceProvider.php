@@ -28,25 +28,21 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Here you may define how you wish users to be authenticated for your Lumen
-        // application. The callback which receives the incoming request instance
-        // should return either a User instance or null. You're free to obtain
-        // the User instance via an API token or any other method necessary.
-
         Auth::viaRequest('api', function ($request) {
-            // new AuthenticatedUser();
-
             $authClient = app(AuthClient::class);
 
-            $response = $authClient->login(
-                $request->headers->get('php-auth-type', 'http-basic'),
-                $request->headers->get('php-auth-user'),
-                $request->headers->get('php-auth-pw')
-            );
+            $auth_type = $request->headers->get('php-auth-type', 'http-basic');
+            $auth_user = $request->headers->get('php-auth-user');
+            $auth_password = $request->headers->get('php-auth-pw');
 
-            error_log("auth response = ".json_encode((string)$response->getBody()));
+            if(in_array(null, [$auth_user, $auth_password])){
+                return new PublicUser();
+            }
 
-            return new PublicUser();
+            $response = $authClient->login($auth_type, $auth_user, $auth_password);
+            $json = json_decode((string)$response->getBody(), true);
+
+            return new AuthenticatedUser($json);
         });
     }
 }
