@@ -14,6 +14,7 @@ class AuthenticatedUser extends Model implements AuthenticatableContract, Author
 
     public $id;
     public $username;
+    public $token;
     public $repository_type;
     public $package_groups = [];
 

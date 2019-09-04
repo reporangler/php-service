@@ -11,14 +11,18 @@ class PublicUser extends Model implements AuthenticatableContract, AuthorizableC
 {
     use Authenticatable, Authorizable;
 
+    public $id;
+    public $username;
+    public $token;
+    public $repository_type;
+    public $package_groups = [];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'id', 'username', 'group'
-    ];
+    protected $fillable = ['id', 'username', 'token', 'repository_type', 'package_groups'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -29,14 +33,21 @@ class PublicUser extends Model implements AuthenticatableContract, AuthorizableC
         'password',
     ];
 
-    public function __construct(array $attributes = [])
+    public function __construct()
     {
-        $attributes = [
+        parent::__construct([
             'id' => 0,
             'username' => 'public-user',
-            'group' => 'public',
-        ];
+            'token' => '',
+            'repository_type' => config('app.repository_type'),
+            'package_groups' => [
+                'name' => 'public'
+            ],
+        ]);
+    }
 
-        parent::__construct($attributes);
+    public function getPackageNamesAttribute()
+    {
+        return Arr::pluck($this->package_groups, 'name');
     }
 }
