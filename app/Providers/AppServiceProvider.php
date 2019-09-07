@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Auth::viaRequest('api', function ($request) {
+        Auth::viaRequest('api', function (Request $request) {
             $authClient = app(AuthClient::class);
 
             $auth_type = $request->headers->get('php-auth-type', 'http-basic');
