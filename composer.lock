@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b11484c34e945d185d68b4c902c8f071",
+    "content-hash": "57bcf8a857bdeb402c9f61492ddef8b5",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -2184,11 +2184,11 @@
         },
         {
             "name": "reporangler/lib-reporangler",
-            "version": "1.0.0",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reporangler/lib-reporangler",
-                "reference": "e8f8b45d33f95a1bcc92d4fc604648bca265390a"
+                "reference": "91e6cf51a90a10e83f15f2e9f9e87d582a190dca"
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.3",
@@ -2219,7 +2219,7 @@
                 "php",
                 "reporangler"
             ],
-            "time": "2019-09-07T15:32:35+00:00"
+            "time": "2019-09-07T19:23:14+00:00"
         },
         {
             "name": "symfony/console",

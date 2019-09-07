@@ -41,6 +41,12 @@ class Controller extends BaseController
 
         $packages = $metadata->getPackages($user->token);
 
-        return new JsonResponse($packages, 200);
+        $document = ["packages" => []];
+
+        foreach($packages as $item){
+            $document['packages'][$item['name']][$item['version']] = $item['definition'];
+        }
+
+        return new JsonResponse($document, 200);
     }
 }
