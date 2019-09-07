@@ -4,3 +4,4 @@ vendor
 .env
 xdebug.log
 satis-backup.json
+auth.json
