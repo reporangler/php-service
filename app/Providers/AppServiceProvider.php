@@ -33,15 +33,22 @@ class AppServiceProvider extends ServiceProvider
             $auth_type = $request->headers->get('php-auth-type', 'http-basic');
             $auth_user = $request->headers->get('php-auth-user');
             $auth_password = $request->headers->get('php-auth-pw');
+            $repository_type = config('app.repository_type');
 
             if(in_array(null, [$auth_user, $auth_password])){
-                return app(PublicUser::class);
+                return new PublicUser($repository_type);
             }
 
-            $response = $authClient->login($auth_type, $auth_user, $auth_password);
+            $response = $authClient->login(
+                $auth_type,
+                $auth_user,
+                $auth_password,
+                $repository_type
+            );
+
             $json = json_decode((string)$response->getBody(), true);
 
-            return app(AuthenticatedUser::class, $json);
+            return new AuthenticatedUser($json);
         });
     }
 }
