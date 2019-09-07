@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use App\Services\AuthClient;
-use App\Services\MetadataClient;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
+use RepoRangler\Entity\AuthenticatedUser;
+use RepoRangler\Entity\PublicUser;
+use RepoRangler\Services\AuthClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,22 +18,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Client::class);
+    }
 
-        $this->app->bind(AuthClient::class, function(Application $app){
-            $baseUrl = config('app.auth_base_url');
+    /**
+     * Boot the authentication services for the application.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Auth::viaRequest('api', function ($request) {
+            $authClient = app(AuthClient::class);
 
-            $httpClient = $app->make(Client::class);
+            $auth_type = $request->headers->get('php-auth-type', 'http-basic');
+            $auth_user = $request->headers->get('php-auth-user');
+            $auth_password = $request->headers->get('php-auth-pw');
 
-            return new AuthClient($baseUrl, $httpClient);
-        });
+            if(in_array(null, [$auth_user, $auth_password])){
+                return app(PublicUser::class);
+            }
 
-        $this->app->bind(MetadataClient::class, function(Application $app){
-            $baseUrl = config('app.metadata_base_url');
+            $response = $authClient->login($auth_type, $auth_user, $auth_password);
+            $json = json_decode((string)$response->getBody(), true);
 
-            $httpClient = $app->make(Client::class);
-
-            return new MetadataClient($baseUrl, $httpClient);
+            return app(AuthenticatedUser::class, $json);
         });
     }
 }
