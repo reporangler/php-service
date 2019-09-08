@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\RepositoryService;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -10,26 +11,18 @@ use RepoRangler\Services\MetadataClient;
 
 class ComposerController extends BaseController
 {
-    public function repository()
+    public function repository(RepositoryService $repoService)
     {
-        // Generate a random hash we can ignore :)
-        $hash = sha1(time());
-
-        return new JsonResponse([
-            "packages" => [],
-            "includes" => [
-                "include/all$".$hash.".json" => [
-                    "sha1" => $hash
-                ]
-            ]
-        ], 200);
+        return new JsonResponse($repoService->getComposerConfig(), 200);
     }
 
     public function packages(MetadataClient $metadata)
     {
         $user = Auth::user();
 
-        $packages = $metadata->getPackages($user->token);
+        $repositoryType = config('app.repository_type');
+
+        $packages = $metadata->getPackages($user->token, $repositoryType);
 
         $document = ["packages" => []];
 
