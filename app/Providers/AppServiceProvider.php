@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
-use RepoRangler\Entity\AuthenticatedUser;
+use RepoRangler\Entity\RepositoryUser;
 use RepoRangler\Entity\PublicUser;
 use RepoRangler\Services\AuthClient;
 
@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
             $json = json_decode((string)$response->getBody(), true);
 
-            return new AuthenticatedUser($json);
+            return new RepositoryUser($json);
         });
     }
 }
