@@ -70,6 +70,7 @@ class Handler extends ExceptionHandler
         }
 
         $response = [
+            'exception' => get_class($exception),
             'message' => $message,
             'code' => $code,
         ];
