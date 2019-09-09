@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $auth_type = $request->headers->get('php-auth-type', 'http-basic');
             $auth_user = $request->headers->get('php-auth-user');
             $auth_password = $request->headers->get('php-auth-pw');
-            $repository_type = config('app.repository_type');
+            $repository_type = config('app.repo_type');
 
             if(in_array(null, [$auth_user, $auth_password])){
                 return new PublicUser($repository_type);
