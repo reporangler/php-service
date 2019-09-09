@@ -23,8 +23,8 @@ class RepositoryService
     public function getSatisConfig(): array
     {
         return [
-            "name" => "Reporangler Composer Repository",
-            "description" => "The Main repository configuration",
+            "name" => config('app.repo_name'),
+            "description" => config('app.repo_desc'),
             "homepage" => config('app.php_base_url'),
             "repositories" => [
                 [

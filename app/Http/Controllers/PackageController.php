@@ -39,7 +39,7 @@ class PackageController extends BaseController
 
         $packages = $repoService->scan($data['url'], $data['type']);
 
-        $repositoryType = config('app.repository_type');
+        $repositoryType = config('app.repo_type');
 
         foreach($packages as $item){
             $metadataClient->addPackage(

@@ -20,7 +20,7 @@ class ComposerController extends BaseController
     {
         $user = Auth::user();
 
-        $repositoryType = config('app.repository_type');
+        $repositoryType = config('app.repo_type');
 
         $packages = $metadata->getPackages($user->token, $repositoryType);
 
