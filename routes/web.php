@@ -18,13 +18,15 @@ $router->group(['middleware' => ['cors']], function() use ($router) {
     $router->options('{path:.*}', 'DefaultController@cors');
 
     // Pass all requests through the auth layer
-    $router->group(['middleware' => ['auth']], function() use ($router) {
+    $router->group(['middleware' => ['auth:repo']], function() use ($router) {
         // Repository data
         $router->get('/packages.json', 'ComposerController@repository');
 
         // Return all packages the authenticated user (public or an actual user) is allowed to access
         $router->get('/include/{hash}', 'ComposerController@packages');
+    });
 
+    $router->group(['middleware' => ['auth:api']], function() use ($router){
         // Routes to manage packages
         $router->post('/', 'PackageController@publish');
         $router->put('/', 'PackageController@update');
