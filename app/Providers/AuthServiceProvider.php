@@ -55,12 +55,7 @@ class AuthServiceProvider extends ServiceProvider
         Auth::viaRequest('api', function (Request $request) {
             $authClient = app(AuthClient::class);
 
-            $response = $authClient->login(
-                $request->header('reporangler-login-type'),
-                $request->header('reporangler-login-username'),
-                $request->header('reporangler-login-password'),
-                $request->header('reporangler-login-repository-type')
-            );
+            $response = $authClient->checkToken($request->header('authorization'));
 
             $data = json_decode((string)$response->getBody(), true);
 
