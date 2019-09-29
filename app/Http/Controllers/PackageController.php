@@ -56,16 +56,16 @@ class PackageController extends BaseController
         // TODO: only REST enabled authenticated users are allowed to publish
         // TODO: check the user permission object if this user is allowed to publish into the requested group
 
-        return new JsonResponse($packages, 200);
+        return new JsonResponse($packages);
     }
 
     public function update()
     {
-        return new JsonResponse(['method' => __METHOD__], 200);
+        return new JsonResponse(['method' => __METHOD__]);
     }
 
     public function remove()
     {
-        return new JsonResponse(['method' => __METHOD__], 200);
+        return new JsonResponse(['method' => __METHOD__]);
     }
 }

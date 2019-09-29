@@ -13,7 +13,7 @@ class ComposerController extends BaseController
 {
     public function repository(RepositoryService $repoService)
     {
-        return new JsonResponse($repoService->getComposerConfig(), 200);
+        return new JsonResponse($repoService->getComposerConfig());
     }
 
     public function packages(MetadataClient $metadata)
@@ -30,6 +30,6 @@ class ComposerController extends BaseController
             $document['packages'][$item['name']][$item['version']] = $item['definition'];
         }
 
-        return new JsonResponse($document, 200);
+        return new JsonResponse($document);
     }
 }
