@@ -1,8 +1,12 @@
 <?php
 
 return [
+    'defaults' => [
+        'guard' => 'token',
+    ],
+
     'guards' => [
-        'api'   => ['driver' => 'api'],
-        'repo'  => ['driver' => 'repo'],
+        'repo' => ['driver' => 'repo'],
+        'token' => ['driver' => 'token'],
     ]
 ];
