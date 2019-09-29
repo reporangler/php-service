@@ -41,9 +41,7 @@ class AuthServiceProvider extends ServiceProvider
 
             $response = $authClient->login($auth_type, $auth_user, $auth_password);
 
-            $data = json_decode((string)$response->getBody(), true);
-
-            return new RepositoryUser($data);
+            return new RepositoryUser($response);
         });
     }
 }
