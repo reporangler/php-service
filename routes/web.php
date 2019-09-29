@@ -18,7 +18,7 @@ $router->group(['middleware' => ['cors']], function() use ($router) {
     $router->options('{path:.*}', 'DefaultController@cors');
 
     // Pass all requests through the auth layer
-    $router->group(['middleware' => ['auth:repo']], function() use ($router) {
+    $router->group(['middleware' => 'auth:repo'], function() use ($router) {
         // Repository data
         $router->get('/packages.json', 'ComposerController@repository');
 
@@ -26,7 +26,7 @@ $router->group(['middleware' => ['cors']], function() use ($router) {
         $router->get('/include/{hash}', 'ComposerController@packages');
     });
 
-    $router->group(['middleware' => ['auth:api']], function() use ($router){
+    $router->group(['middleware' => 'auth:token'], function() use ($router) {
         // Routes to manage packages
         $router->post('/', 'PackageController@publish');
         $router->put('/', 'PackageController@update');
