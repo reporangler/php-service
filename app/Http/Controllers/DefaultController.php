@@ -20,6 +20,6 @@ class DefaultController extends BaseController
         return new JsonResponse([
             "statusCode" => 200,
             "service" => config('app.php_base_url')
-        ], 200);
+        ]);
     }
 }
