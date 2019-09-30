@@ -15,7 +15,7 @@
         "composer/composer": "^1.9",
         "composer/satis": "^1.0",
         "laravel/lumen-framework": "5.8.*",
-        "reporangler/lib-reporangler": "^1.1"
+        "reporangler/lib-reporangler": "^1.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
