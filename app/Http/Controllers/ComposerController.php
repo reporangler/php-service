@@ -18,7 +18,7 @@ class ComposerController extends BaseController
 
     public function packages(MetadataClient $metadata)
     {
-        $user = Auth::user();
+        $user = Auth::guard('repo')->user();
 
         $repositoryType = config('app.repo_type');
 
