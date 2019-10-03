@@ -15,7 +15,7 @@ class PackageController extends BaseController
     public function publish(Request $request, RepositoryService $repoService, MetadataClient $metadataClient)
     {
         /** @var  $user */
-        $user = Auth::user();
+        $user = Auth::guard('token')->user();
 
         $types = [
             'composer', 'vcs', 'package', 'pear',
@@ -42,14 +42,16 @@ class PackageController extends BaseController
         $repositoryType = config('app.repo_type');
 
         foreach($packages as $item){
-            $metadataClient->addPackage(
-                $user->token,
-                $repositoryType,
-                $data['package_group'],
-                $item['name'],
-                $item['version'],
-                $item
-            );
+            var_dump($item);
+
+//            $metadataClient->addPackage(
+//                $user->token,
+//                $repositoryType,
+//                $data['package_group'],
+//                $item['name'],
+//                $item['version'],
+//                $item
+//            );
         }
 
         // TODO: check the package group exists
