@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\JsonResponse;
-use RepoRangler\Services\MetadataClient;
 
 class DefaultController extends BaseController
 {
