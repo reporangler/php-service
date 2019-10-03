@@ -20,6 +20,8 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class RepositoryService
 {
+    private $tempDir = '/tmp';
+
     public function getSatisConfig(): array
     {
         return [
@@ -50,7 +52,7 @@ class RepositoryService
         ];
     }
 
-    public function getRuntimeConfig(): array
+    public function getRuntimeConfig(): Config
     {
         $user = Auth::user();
 
@@ -63,7 +65,7 @@ class RepositoryService
         $runtimeConfig = new Config();
         $runtimeConfig->merge([
             'config' => [
-                'home' => $tempDir,
+                'home' => $this->tempDir,
                 'gitlab-token' => 'TODO_PUT_TOKEN_HERE',
             ]
         ]);
@@ -94,8 +96,6 @@ class RepositoryService
 
     public function scan(string $url, string $type): array
     {
-        $tempDir = '/tmp';
-
         // Create a set of console outputs that we can use with the composer objects
         $input = new ArrayInput([]);
         $output = new ConsoleOutput();
@@ -103,7 +103,7 @@ class RepositoryService
         $helperSet = new HelperSet();
         $io = new ConsoleIO($input, $output, $helperSet);
 
-        $composerConfig = $this->getComposerConfig();
+        $composerConfig = $this->getRuntimeConfig();
 
         // initialize composer
         $composer = new Composer();
@@ -120,7 +120,7 @@ class RepositoryService
 
         // Obtain a satis config and then select all the packages from this new repository
         $satisConfig = $this->getSatisConfig();
-        $packageSelection = new PackageSelection($output, $tempDir, $satisConfig, false);
+        $packageSelection = new PackageSelection($output, $this->tempDir, $satisConfig, false);
         $packages = $packageSelection->select($composer, true);
 
         // Extract and dump all the data so it can be returned
