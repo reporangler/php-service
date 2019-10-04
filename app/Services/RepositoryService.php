@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\StreamOutput;
 
 class RepositoryService
 {
@@ -54,9 +53,7 @@ class RepositoryService
 
     public function getRuntimeConfig(): Config
     {
-        $user = Auth::user();
-
-        // TODO: here is a problem, the REST Api user is not a repository user
+        $user = Auth::guard('token')->user();
 
         // Remove all the default repositories
         Config::$defaultRepositories = [];
