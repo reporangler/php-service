@@ -37,21 +37,28 @@ class PackageController extends BaseController
             throw new InvalidRepositoryException();
         }
 
+        // Scanning might take a while, reset the clock to 60 seconds
+        set_time_limit(60);
         $packages = $repoService->scan($data['url'], $data['type']);
 
         $repositoryType = config('app.repo_type');
 
         foreach($packages as $item){
-            var_dump($item);
+            foreach($item as $version){
+                // Each time a package is updated, reset the timeout for another 60 seconds
+                set_time_limit(60);
 
-//            $metadataClient->addPackage(
-//                $user->token,
-//                $repositoryType,
-//                $data['package_group'],
-//                $item['name'],
-//                $item['version'],
-//                $item
-//            );
+                // This then will keep a 60 second window for each package to publish,
+                // but not allow the system an unlimited timeout
+                $metadataClient->addPackage(
+                    $user->token,
+                    $repositoryType,
+                    $data['package_group'],
+                    $version['name'],
+                    $version['version'],
+                    $version
+                );
+            }
         }
 
         // TODO: check the package group exists
