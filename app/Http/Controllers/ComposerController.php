@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\RepositoryService;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Lumen\Http\Request;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\JsonResponse;
 use RepoRangler\Services\MetadataClient;
 

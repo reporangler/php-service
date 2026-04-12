@@ -1,18 +1,41 @@
 <?php
 
 $required = [];
-foreach(['APP_NAME', 'APP_PROTOCOL', 'APP_DOMAIN'] as $key){
+foreach (['APP_NAME', 'APP_PROTOCOL', 'APP_DOMAIN'] as $key) {
     $value = env($key);
-    if($value === null) throw new Exception("The env-var '$key' cannot be empty'");
+    if ($value === null) throw new Exception("The env-var '$key' cannot be empty'");
     $required[$key] = $value;
 }
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel 11 Required Keys
+    |--------------------------------------------------------------------------
+    */
+    'name' => env('APP_NAME', 'php'),
+    'env' => env('APP_ENV', 'production'),
+    'debug' => env('APP_DEBUG', false),
+    'url' => env('APP_URL', 'http://localhost'),
+    'timezone' => 'UTC',
+    'locale' => 'en',
+    'fallback_locale' => 'en',
+    'faker_locale' => 'en_US',
+    'key' => env('APP_KEY'),
+    'cipher' => 'AES-256-CBC',
+    'maintenance' => [
+        'driver' => 'file',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom RepoRangler Keys
+    |--------------------------------------------------------------------------
+    */
     "repo_name" => "Reporangler Composer Repository",
     "repo_desc" => "The Main repository configuration",
     'repo_type' => $required['APP_NAME'],
 
-    'debug' => env('APP_DEBUG', false),
     'protocol' => $required['APP_PROTOCOL'],
     'domain' => env('APP_DOMAIN', $required['APP_DOMAIN']),
 

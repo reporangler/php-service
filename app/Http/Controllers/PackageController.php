@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\RepositoryService;
 use Composer\Repository\InvalidRepositoryException;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use RepoRangler\Services\MetadataClient;
@@ -31,7 +31,7 @@ class PackageController extends BaseController
             'package_group' => 'required|string',
         ];
 
-        $data = $this->validate($request,$schema);
+        $data = $request->validate($schema);
 
         if(!$repoService->isRepositoryValid($data['url'], 'vcs')){
             throw new InvalidRepositoryException();
