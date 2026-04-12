@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             $auth_password = $request->headers->get('php-auth-pw');
 
             if(in_array(null, [$auth_user, $auth_password])){
-                return new PublicUser($repository_type);
+                return new PublicUser();
             }
 
             $response = $authClient->login($auth_type, $auth_user, $auth_password);
