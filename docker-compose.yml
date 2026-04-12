@@ -1,33 +1,34 @@
-version: "3.4"
-
 networks:
   php_service:
   repo_rangler_proxy:
-    external:
-      name: repo_rangler_proxy
+    name: repo_rangler_proxy
+    external: true
 
 services:
   php_service_nginx:
     container_name: reporangler_php_service_nginx
-    image: reporangler/php_service_nginx
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
     networks:
       - repo_rangler_proxy
       - php_service
+    volumes:
+      - ./public:/www/public:ro
     environment:
-      - VIRTUAL_HOST=php.reporangler.develop
+      - VIRTUAL_HOST=php.reporangler.localhost
+    depends_on:
+      - php_service_phpfpm
 
   php_service_phpfpm:
     container_name: reporangler_php_service_phpfpm
-    image: reporangler/php_service_phpfpm
     build:
       context: .
       dockerfile: docker/phpfpm/Dockerfile
-    volumes:
-      - $PWD:/www
     networks:
       - php_service
+    volumes:
+      - .:/www
+      - ../lib-reporangler:/lib-reporangler:ro
     env_file:
-      - $PWD/.env
+      - .env
